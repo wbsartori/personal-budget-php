@@ -1,24 +1,25 @@
 {
-    "name": "server/personal-budget",
-    "autoload": {
-        "psr-4": {
-            "Server\\PersonalBudget\\": "src/"
-        },
-        "files": [
-            "src/core/config.php",
-            "vendor/autoload.php"
-        ]
+  "name": "server/personal-budget",
+  "autoload": {
+    "psr-4": {
+      "Server\\PersonalBudget\\": "src/"
     },
-    "config": {
-        "vendor-dir": "vendor"
-    },
-    "authors": [
-        {
-            "name": "Wesley Bonfim Sartóri",
-            "email": "wbsartori@gmail.com"
-        }
-    ],
-    "require": {
-        "guzzlehttp/guzzle": "^7.5"
+    "files": [
+      "src/core/config.php",
+      "vendor/autoload.php"
+    ]
+  },
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "authors": [
+    {
+      "name": "Wesley Bonfim Sartóri",
+      "email": "wbsartori@gmail.com"
     }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^7.5",
+    "ext-pdo": "*"
+  }
 }
