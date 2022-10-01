@@ -105,9 +105,9 @@ class ConnectionSQLite
         $date = new DateTime();
         array_push($fields, 'createdAt', 'updatedAt');
         array_push($values, $date->format('Y-m-d'), $date->format('Y-m-d'));
-        $statement = $db->query('INSERT INTO ' . $table . ' ('. implode(',',$fields) .') VALUES ("' . implode('","', $values) .'")');
+        $statement = $db->query('INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES ("' . implode('","', $values) . '")');
 
-        if($statement->execute()){
+        if ($statement->execute()) {
             return true;
         }
 
@@ -116,6 +116,7 @@ class ConnectionSQLite
 
     /**
      * @param $table
+     * @param string $fields
      * @param null $where
      * @param null $join
      * @param null $order
@@ -123,18 +124,28 @@ class ConnectionSQLite
      * @param bool $fetchAll
      * @return mixed
      */
-    public function select($table, $where = null, $join = null, $order = null, $limit = null, bool $fetchAll = true): mixed
+    public function select($table, string $fields = '*', $where = null, $join = null, $order = null, $limit = null, bool $fetchAll = true): mixed
     {
         $data = [];
         $db = $this->connection();
-        $statement = $db->query('SELECT * FROM ' . $table . $this->where($where) . $join . $order . $limit);
+
+        if(!is_null($where)){
+            $where = $this->where($where);
+        }
+
+        if($fields < 0)
+        {
+            $fields = '*';
+        }
+
+        $statement = $db->query('SELECT ' . $fields . ' FROM ' . $table . $where . $join . $order . $limit);
         $list = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($list as $item){
+        foreach ($list as $item) {
             $data[] = $item;
         }
 
-        if(!$fetchAll){
+        if (!$fetchAll) {
             return $data[0];
         }
 
@@ -156,10 +167,10 @@ class ConnectionSQLite
         array_push($fields, 'updatedAt');
         array_push($values, $date->format('Y-m-d'));
 
-        foreach ($fields as $fieldkey => $field){
-            foreach ($values as $valueKey => $value){
-                if($fieldkey === $valueKey){
-                    $query[] = $field . ' = "' .$value .'"';
+        foreach ($fields as $fieldkey => $field) {
+            foreach ($values as $valueKey => $value) {
+                if ($fieldkey === $valueKey) {
+                    $query[] = $field . ' = "' . $value . '"';
                 }
             }
         }
@@ -167,7 +178,7 @@ class ConnectionSQLite
         $queryString = implode(',', $query);
         $statement = $db->query('UPDATE ' . $table . ' SET ' . $queryString . $this->where($where));
 
-        if($statement->execute()){
+        if ($statement->execute()) {
             return true;
         }
 
@@ -184,7 +195,7 @@ class ConnectionSQLite
         $db = $this->connection();
         $statement = $db->query('DELETE FROM ' . $table . $this->where($where));
 
-        if($statement->execute()){
+        if ($statement->execute()) {
             return true;
         }
 
@@ -192,6 +203,7 @@ class ConnectionSQLite
     }
 
     /**
+     * @description Gera o where da consulta formato => $where[] = ['P' => 'id' , 'OP' => '=', 'V' => '2'];
      * @param $where
      * @return string
      */
@@ -199,24 +211,60 @@ class ConnectionSQLite
     {
         $sql = '';
         $countParams = count($where);
-        
-        foreach ($where as $item){
-            if($countParams > 1){
-                $sql .= $item['P'] . ' ' . $item['OP'] . ' ' . $item['V'] .' AND ';
+
+        foreach ($where as $item) {
+            if ($countParams > 1) {
+                $sql .= $item['P'] . ' ' . $item['OP'] . ' ' . $item['V'] . ' AND ';
             } else {
                 $sql = $item['P'] . ' ' . $item['OP'] . ' ' . $item['V'];
             }
         }
-        
+
         $sqlCount = substr($sql, strlen($sql) - 4, strlen($sql));
 
-        if(trim($sqlCount) === "AND"){
-            return ' WHERE ' . substr($sql, -strlen($sql), strlen($sql) -4);
+        if (trim($sqlCount) === "AND") {
+            return ' WHERE ' . substr($sql, -strlen($sql), strlen($sql) - 4);
         }
 
         return ' WHERE ' . $sql;
     }
-    public function join($join){}
-    public function order($order){}
-    public function limit($limit){}
+
+    /**
+     * @description Gera o join da consulta formato => $join[] = ['TBR' => 'person' , 'CR' => 'id', 'TBD' => 'income', 'CD' => 'idPerson'];
+     * @param $join
+     * @return string
+     */
+    public function join($join): string
+    {
+        $sql = '';
+        $countJoin = count($join);
+
+        foreach ($join as $item) {
+            if ($countJoin > 1) {
+                $sql .= ' LEFT JOIN ' . $item['TBR'] . ' on ' . $item['TBR'] . '.' . $item['CR'] . ' = ' . $item['TBD'] . '.' . $item['CD'];
+            } else {
+                $sql = ' LEFT JOIN ' . $item['TBR'] . '.' . $item['CR'] . ' = ' . $item['TBD'] . '.' . $item['CD'];
+            }
+        }
+
+        return $sql;
+    }
+
+    /**
+     * @param $order
+     * @return string
+     */
+    public function order($order): string
+    {
+        return ' ORDER BY ' . $order;
+    }
+
+    /**
+     * @param $limit
+     * @return string
+     */
+    public function limit($limit): string
+    {
+        return ' LIMIT ' . $limit;
+    }
 }

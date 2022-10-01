@@ -7,8 +7,15 @@ use Server\PersonalBudget\Modules\Income\Models\IncomeModel;
 
 $teste = new ConnectionSQLite();
 $retorno = $teste->connection();
-//$sql = $teste->select('income');
+
+#SELECT
+//$where[] = ['P' => 'id' , 'OP' => '=', 'V' => '2'];
+//$sql = $teste->select('income', '', $where);
+
+#INSERT
 //$sql = $teste->insert('income', ['idPerson','description','incomeDate','value'], ['1','Wesley','2022-01-01',3500.55]);
+
+#UPDATE
 //$sql = $teste->update(
 //    'income',
 //    '',
@@ -16,10 +23,20 @@ $retorno = $teste->connection();
 //    ['1','Allan','2022-02-02',5500.55]
 //);
 
-$where[] = ['P' => 'id' , 'OP' => '=', 'V' => '2'];
-$where[] = ['P' => 'id' , 'OP' => '=', 'V' => '3'];
-$sql = $teste->delete('income', $where);
+#DELETE
+//$sql = $teste->delete('income', $where);
+
+#JOIN
+//$join[] = ['TBR' => 'person' , 'CR' => 'id', 'TBD' => 'income', 'CD' => 'idPerson'];
+//$join[] = ['TBR' => 'person' , 'CR' => 'id', 'TBD' => 'income', 'CD' => 'idPerson'];
+
+//$sql = $teste->join($join);
+
+//$where[] = ['P' => 'id' , 'OP' => '=', 'V' => '2'];
+//$where[] = ['P' => 'id' , 'OP' => '=', 'V' => '3'];
+//$sql = $teste->where($where);
+
 echo '<pre>';
-print_r($sql);
+print_r('');
 exit;
 
