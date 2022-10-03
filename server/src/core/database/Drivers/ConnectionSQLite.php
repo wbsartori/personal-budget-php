@@ -27,10 +27,12 @@ class ConnectionSQLite
      */
     private $db = null;
 
+    private $table = '';
+
     /**
      * @return string
      */
-    public function getPath(): string
+    protected function getPath(): string
     {
         return $this->path;
     }
@@ -38,7 +40,7 @@ class ConnectionSQLite
     /**
      * @param string $path
      */
-    public function setPath(string $path)
+    protected function setPath(string $path)
     {
         $this->path = $path;
     }
@@ -46,7 +48,7 @@ class ConnectionSQLite
     /**
      * @return string
      */
-    public function getDatabaseName(): string
+    protected function getDatabaseName(): string
     {
         return $this->databaseName;
     }
@@ -54,7 +56,7 @@ class ConnectionSQLite
     /**
      * @param string $databaseName
      */
-    public function setDatabaseName(string $databaseName)
+    protected function setDatabaseName(string $databaseName)
     {
         $this->databaseName = $databaseName;
     }
@@ -62,7 +64,7 @@ class ConnectionSQLite
     /**
      * @return null
      */
-    public function getDb()
+    protected function getDb()
     {
         return $this->db;
     }
@@ -70,15 +72,36 @@ class ConnectionSQLite
     /**
      * @param PDO $db
      */
-    public function setDb(PDO $db)
+    protected function setDb(PDO $db)
     {
         $this->db = $db;
     }
 
     /**
+     * @return string
+     */
+    protected function getTable(): string
+    {
+        return $this->table;
+    }
+
+    /**
+     * @param string $table
+     */
+    protected function setTable(string $table): void
+    {
+        $this->table = $table;
+    }
+
+    protected function __construct($table)
+    {
+        $this->setTable($table);
+    }
+
+    /**
      * @return PDO|void
      */
-    public function connection()
+    protected function connection()
     {
         $this->setDatabaseName('database.sqlite');
         $this->setPath(BASE_ROOT . '\\database\\');
@@ -93,19 +116,18 @@ class ConnectionSQLite
     }
 
     /**
-     * @param $table
      * @param $fields
      * @param $values
      * @return bool
      */
-    public function insert($table, $fields, $values): bool
+    protected function insert($fields, $values): bool
     {
         $db = $this->connection();
 
         $date = new DateTime();
         array_push($fields, 'createdAt', 'updatedAt');
         array_push($values, $date->format('Y-m-d'), $date->format('Y-m-d'));
-        $statement = $db->query('INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES ("' . implode('","', $values) . '")');
+        $statement = $db->query('INSERT INTO ' . $this->getTable() . ' (' . implode(',', $fields) . ') VALUES ("' . implode('","', $values) . '")');
 
         if ($statement->execute()) {
             return true;
@@ -115,7 +137,6 @@ class ConnectionSQLite
     }
 
     /**
-     * @param $table
      * @param string $fields
      * @param null $where
      * @param null $join
@@ -124,7 +145,7 @@ class ConnectionSQLite
      * @param bool $fetchAll
      * @return mixed
      */
-    public function select($table, string $fields = '*', $where = null, $join = null, $order = null, $limit = null, bool $fetchAll = true): mixed
+    protected function select(string $fields = '*', $where = null, $join = null, $order = null, $limit = null, bool $fetchAll = true): mixed
     {
         $data = [];
         $db = $this->connection();
@@ -138,7 +159,7 @@ class ConnectionSQLite
             $fields = '*';
         }
 
-        $statement = $db->query('SELECT ' . $fields . ' FROM ' . $table . $where . $join . $order . $limit);
+        $statement = $db->query('SELECT ' . $fields . ' FROM ' . $this->getTable() . $where . $join . $order . $limit);
         $list = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($list as $item) {
@@ -153,13 +174,12 @@ class ConnectionSQLite
     }
 
     /**
-     * @param $table
      * @param null $where
      * @param array $fields
      * @param array $values
      * @return bool
      */
-    public function update($table, $where = null, array $fields = [], array $values = []): bool
+    protected function update($where = null, array $fields = [], array $values = []): bool
     {
         $db = $this->connection();
         $query = [];
@@ -176,7 +196,7 @@ class ConnectionSQLite
         }
 
         $queryString = implode(',', $query);
-        $statement = $db->query('UPDATE ' . $table . ' SET ' . $queryString . $this->where($where));
+        $statement = $db->query('UPDATE ' . $this->getTable() . ' SET ' . $queryString . $this->where($where));
 
         if ($statement->execute()) {
             return true;
@@ -186,14 +206,13 @@ class ConnectionSQLite
     }
 
     /**
-     * @param $table
      * @param null $where
      * @return bool
      */
-    public function delete($table, $where = null): bool
+    protected function delete($where = null): bool
     {
         $db = $this->connection();
-        $statement = $db->query('DELETE FROM ' . $table . $this->where($where));
+        $statement = $db->query('DELETE FROM ' . $this->getTable() . $this->where($where));
 
         if ($statement->execute()) {
             return true;
@@ -207,7 +226,7 @@ class ConnectionSQLite
      * @param $where
      * @return string
      */
-    public function where($where): string
+    protected function where($where): string
     {
         $sql = '';
         $countParams = count($where);
@@ -234,7 +253,7 @@ class ConnectionSQLite
      * @param $join
      * @return string
      */
-    public function join($join): string
+    protected function join($join): string
     {
         $sql = '';
         $countJoin = count($join);
@@ -254,7 +273,7 @@ class ConnectionSQLite
      * @param $order
      * @return string
      */
-    public function order($order): string
+    protected function order($order): string
     {
         return ' ORDER BY ' . $order;
     }
@@ -263,7 +282,7 @@ class ConnectionSQLite
      * @param $limit
      * @return string
      */
-    public function limit($limit): string
+    protected function limit($limit): string
     {
         return ' LIMIT ' . $limit;
     }

@@ -2,11 +2,9 @@
 
 require_once ('vendor/autoload.php');
 
-use Server\PersonalBudget\Core\Database\Drivers\ConnectionSQLite;
-use Server\PersonalBudget\Modules\Income\Models\IncomeModel;
 
-$teste = new ConnectionSQLite();
-$retorno = $teste->connection();
+$IncomeRepository = new \Server\PersonalBudget\Modules\Income\Repositories\IncomeRepository();
+$sql = $IncomeRepository->select();
 
 #SELECT
 //$where[] = ['P' => 'id' , 'OP' => '=', 'V' => '2'];
@@ -37,6 +35,6 @@ $retorno = $teste->connection();
 //$sql = $teste->where($where);
 
 echo '<pre>';
-print_r('');
+print_r($sql);
 exit;
 
