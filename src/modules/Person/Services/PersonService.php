@@ -2,6 +2,7 @@
 
 namespace Source\Modules\Person\Services;
 
+use Exception;
 use Source\Modules\Person\Repositories\PersonRepository;
 
 class PersonService
@@ -32,8 +33,21 @@ class PersonService
         $this->setPersonRepository((new PersonRepository()));
     }
 
+    /**
+     * @param $data
+     * @return string[]
+     * @throws Exception
+     */
     public function create($data){
-        return true;
+        $person = $this->getPersonRepository()->insert(['name','birthDate','gender','email','status'], $data);
+
+        if($person){
+            return [
+                'message' => 'success'
+            ];
+        }
+
+        throw new Exception('Ocorreu um erro ao criar o usuário!');
     }
     public function read(){
         return $this->getPersonRepository()->select();

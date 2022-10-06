@@ -20,7 +20,7 @@ $data = [
 
 $persons = $Person->create($data);
 
-if ($persons) {
+if ($persons['message'] === 'success') {
     $_SESSION['message'] = 'Pessoa inserida com sucesso!';
     header('Location: ../index.php');
 } else {

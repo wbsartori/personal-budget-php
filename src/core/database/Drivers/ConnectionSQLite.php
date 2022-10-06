@@ -129,7 +129,7 @@ class ConnectionSQLite
         array_push($values, $date->format('Y-m-d'), $date->format('Y-m-d'));
         $statement = $db->query('INSERT INTO ' . $this->getTable() . ' (' . implode(',', $fields) . ') VALUES ("' . implode('","', $values) . '")');
 
-        if ($statement->execute()) {
+        if ($statement) {
             return true;
         }
 
