@@ -28,8 +28,8 @@
                         Cadastros
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Pessoa</a></li>
-                        <li><a class="dropdown-item" href="#">Renda</a></li>
+                        <li><a class="dropdown-item" href="/personal-budget-php/src/views/Person/index.php">Pessoa</a></li>
+                        <li><a class="dropdown-item" href="personal-budget-php/src/views/Income/index.php">Renda</a></li>
                     </ul>
                 </li>
             </ul>
