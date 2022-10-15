@@ -189,9 +189,16 @@ class DriverConnectionSQLite
         array_push($values, $date->format('Y-m-d'));
 
         foreach ($fields as $fieldkey => $field) {
-            foreach ($values as $valueKey => $value) {
-                if ($fieldkey === $valueKey) {
-                    $query[] = $field . ' = "' . $value . '"';
+            $newField[] = $field;
+        }
+        foreach ($values as $valueKey => $value) {
+            $newValue[] = $value;
+        }
+
+        foreach ($newField as $key => $nField){
+            foreach ($newValue as $key2 => $nValue){
+                if($key === $key2 && $nField !== 'id'){
+                    $query[] = $nField . ' = "' . $nValue . '"';
                 }
             }
         }

@@ -45,7 +45,11 @@ $_SESSION['message'] = '';
                         <td><?php echo $item['id']?></td>
                         <td><?php echo $item['name']?></td>
                         <td><?php echo $item['email']?></td>
-                        <td><?php echo $item['status']?></td>
+                        <?php if($item['status'] === 'A') { ?>
+                            <td><span class="badge text-bg-success">Ativo</span></td>
+                        <?php } else { ?>
+                            <td><span class="badge text-bg-danger">Inativo</span></td>
+                        <?php } ?>
                         <td>
                             <div class="btn-group float-end" role="group" aria-label="Basic example">
                                 <a href="_edit.php?id=<?= $item['id'];?>" class="btn btn-warning" ><i class="bi bi-pencil-square"></i></a>

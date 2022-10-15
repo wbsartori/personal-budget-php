@@ -1,3 +1,4 @@
+<input type="hidden" class="form-control" id="_id" name="_id" value="<?= $persons['id'] ?? '' ?>">
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
@@ -44,22 +45,18 @@
         </div>
     </div>
 </div>
-<div class="row mt-3">
-    <label for="email">Status:</label>
-    <div class="col-md-1">
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="status" checked>
-            <label class="form-check-label" for="status">
-                Ativo
-            </label>
-        </div>
-    </div>
-    <div class="col-md-1">
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="status" id="status">
-            <label class="form-check-label" for="status">
-                Inativo
-            </label>
+<div class="row">
+    <div class="col-md-3">
+        <label class="mt-3" for="status">Status:</label>
+        <label for="status"></label>
+        <div class="form-check form-switch">
+            <?php if($persons['status'] == 'A') { ?>
+                <input class="form-check-input" type="checkbox" id="status" name="status" checked>
+                <span class="badge text-bg-success">Ativo</span>
+            <?php } else { ?>
+                <input class="form-check-input" type="checkbox" id="status" name="status">
+                <span class="badge text-bg-danger">Inativo</span>
+            <?php } ?>
         </div>
     </div>
 </div>

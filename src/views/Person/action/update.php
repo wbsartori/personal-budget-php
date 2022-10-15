@@ -10,12 +10,12 @@ $Person = new PersonService();
 $data = [];
 
 $data = [
-    'id' => addslashes($_POST['id']),
+    'id' => addslashes($_POST['_id']),
     'name' => addslashes($_POST['name']),
     'birthDate' => addslashes($_POST['birthDate']),
     'gender' => addslashes($_POST['gender']),
     'email' => addslashes($_POST['email']),
-    'status' => addslashes($_POST['status'] === 'on' ? 'A' : 'I'),
+    'status' => addslashes(isset($_POST['status']) ? 'A' : 'I'),
 ];
 
 
