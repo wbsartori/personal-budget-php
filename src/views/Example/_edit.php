@@ -1,9 +1,6 @@
 <?php
-require_once ('../../../vendor/autoload.php');
-
 include_once('../includes/_header.php');
-include_once ('action/edit.php');
-
+require_once('../../../vendor/autoload.php');
 ?>
 
 <?php

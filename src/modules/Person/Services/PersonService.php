@@ -49,13 +49,25 @@ class PersonService
 
         throw new Exception('Ocorreu um erro ao criar o usuário!');
     }
-    public function read(){
+    public function read($id = null){
+        if($id > 0){
+            $where[] = ['P' => 'id' , 'OP' => '=', 'V' => $id];
+            return $this->getPersonRepository()->select('*', $where)[0];
+        }
+
         return $this->getPersonRepository()->select();
     }
     public function update($data){
         return true;
     }
-    public function delete(){
-        return true;
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function delete($id): bool
+    {
+        $where[] = ['P' => 'id' , 'OP' => '=', 'V' => $id];
+        return $this->getPersonRepository()->delete($where);
     }
 }

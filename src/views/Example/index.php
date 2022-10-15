@@ -48,7 +48,7 @@ $_SESSION['message'] = '';
                         <td><?php echo $item['status']?></td>
                         <td>
                             <div class="btn-group float-end" role="group" aria-label="Basic example">
-                                <a href="_edit.php?id=<?= $item['id'];?>" class="btn btn-warning" ><i class="bi bi-pencil-square"></i></a>
+                                <a href="editar.php?id='<?= $item['id'];?>'" class="btn btn-warning" ><i class="bi bi-pencil-square"></i></a>
 
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confimarDelete<?= $item['id'];?>">
                                         <i class="bi bi-trash"></i>
@@ -77,8 +77,8 @@ $_SESSION['message'] = '';
                                                 <input type="text" class="form-control" id="status" name="status" value="<?php echo $item['status'];?>" disabled>
                                             </div>
                                             <div class="modal-footer">
-                                                <form action="action/delete.php" method="post">
-                                                    <input type="hidden" name="id" id="id" value="<?php echo $item['id']?>">
+                                                <form action="action/excluir.php" method="post">
+                                                    <input type="hidden" name="cidade_id" id="cidade_id" value="<?php echo $item['id']?>">
                                                     <button type="submit" class="btn btn-warning">Confirmar<i class="bi bi-pencil-square"></i></button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 </form>
