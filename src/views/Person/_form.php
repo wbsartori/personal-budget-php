@@ -50,7 +50,7 @@
         <label class="mt-3" for="status">Status:</label>
         <label for="status"></label>
         <div class="form-check form-switch">
-            <?php if($persons['status'] == 'A') { ?>
+            <?php if(isset($persons['status']) && $persons['status'] == 'A') { ?>
                 <input class="form-check-input" type="checkbox" id="status" name="status" checked>
                 <span class="badge text-bg-success">Ativo</span>
             <?php } else { ?>

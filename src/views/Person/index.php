@@ -83,7 +83,7 @@ $_SESSION['message'] = '';
                                             <div class="modal-footer">
                                                 <form action="action/delete.php" method="post">
                                                     <input type="hidden" name="id" id="id" value="<?php echo $item['id']?>">
-                                                    <button type="submit" class="btn btn-warning">Confirmar<i class="bi bi-pencil-square"></i></button>
+                                                    <button type="submit" class="btn btn-warning">Confirmar<i class="bi bi-trash"></i></button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 </form>
                                             </div>
