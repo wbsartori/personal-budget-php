@@ -1,15 +1,14 @@
 <?php
 
-namespace Source\Modules\Movement\Repositories;
-
+namespace Source\Modules\Example\Repositories;
 
 
 use Source\Core\Database\Drivers\DriverConnectionSQLite;
 use Source\Core\Database\Interfaces\InterfaceDriverConnection;
 
-class MovementRepository extends DriverConnectionSQLite implements InterfaceDriverConnection
+class ExampleRepository extends DriverConnectionSQLite implements InterfaceDriverConnection
 {
-    protected const TABLE = 'movement';
+    protected const TABLE = 'example';
 
     public function __construct()
     {

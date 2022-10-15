@@ -2,175 +2,177 @@
 
 namespace Source\Modules\Movement\Models;
 
+use DateTime;
+
 class MovementModel
 {
-    protected $id;
-    protected $idPerson;
-    protected $description;
-    protected $classification;
-    protected $typeOfCost;
-    protected $movementDate;
-    protected $value;
-    protected $status;
-    protected $createdAt;
-    protected $updatedAt;
+    protected int $id;
+    protected int $idPerson;
+    protected string $description;
+    protected string $classification;
+    protected string $typeOfCost;
+    protected string $movementDate;
+    protected string $value;
+    protected string $status;
+    protected string $createdAt;
+    protected string $updatedAt;
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
-    public function setId($id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getIdPerson()
+    public function getIdPerson(): int
     {
         return $this->idPerson;
     }
 
     /**
-     * @param mixed $idPerson
+     * @param int $idPerson
      */
-    public function setIdPerson($idPerson)
+    public function setIdPerson(int $idPerson): void
     {
         $this->idPerson = $idPerson;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param mixed $description
+     * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getClassification()
+    public function getClassification(): string
     {
         return $this->classification;
     }
 
     /**
-     * @param mixed $classification
+     * @param string $classification
      */
-    public function setClassification($classification)
+    public function setClassification(string $classification): void
     {
         $this->classification = $classification;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getTypeOfCost()
+    public function getTypeOfCost(): string
     {
         return $this->typeOfCost;
     }
 
     /**
-     * @param mixed $typeOfCost
+     * @param string $typeOfCost
      */
-    public function setTypeOfCost($typeOfCost)
+    public function setTypeOfCost(string $typeOfCost): void
     {
         $this->typeOfCost = $typeOfCost;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getMovementDate()
+    public function getMovementDate(): string
     {
         return $this->movementDate;
     }
 
     /**
-     * @param mixed $movementDate
+     * @param string $movementDate
      */
-    public function setMovementDate($movementDate)
+    public function setMovementDate(string $movementDate): void
     {
         $this->movementDate = $movementDate;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
 
     /**
-     * @param mixed $value
+     * @param string $value
      */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
-     * @param mixed $status
+     * @param string $status
      */
-    public function setStatus($status)
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param string $createdAt
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param mixed $updatedAt
+     * @param string $updatedAt
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(string $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }

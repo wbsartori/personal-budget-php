@@ -3,7 +3,7 @@
 require_once('vendor/autoload.php');
 
 
-$IncomeRepository = new \Server\PersonalBudget\Modules\Income\Repositories\IncomeRepository();
+$IncomeRepository = new \Source\Modules\Income\Repositories\IncomeRepository();
 $sql = $IncomeRepository->select();
 
 #SELECT

@@ -6,11 +6,12 @@ use DateTime;
 use Exception;
 use PDO;
 
+
 /**
  * @description Classe de conexão com Driver SQLite
  * @author Wesley Bonfim Sartóri wbsartori@gmail.com
  */
-class ConnectionSQLite
+class DriverConnectionSQLite
 {
     /**
      * @var string
@@ -32,7 +33,7 @@ class ConnectionSQLite
     /**
      * @return string
      */
-    protected function getPath(): string
+    public function getPath(): string
     {
         return $this->path;
     }
@@ -40,7 +41,7 @@ class ConnectionSQLite
     /**
      * @param string $path
      */
-    protected function setPath(string $path)
+    public function setPath(string $path)
     {
         $this->path = $path;
     }
@@ -48,7 +49,7 @@ class ConnectionSQLite
     /**
      * @return string
      */
-    protected function getDatabaseName(): string
+    public function getDatabaseName(): string
     {
         return $this->databaseName;
     }
@@ -56,7 +57,7 @@ class ConnectionSQLite
     /**
      * @param string $databaseName
      */
-    protected function setDatabaseName(string $databaseName)
+    public function setDatabaseName(string $databaseName)
     {
         $this->databaseName = $databaseName;
     }
@@ -64,7 +65,7 @@ class ConnectionSQLite
     /**
      * @return null
      */
-    protected function getDb()
+    public function getDb()
     {
         return $this->db;
     }
@@ -72,7 +73,7 @@ class ConnectionSQLite
     /**
      * @param PDO $db
      */
-    protected function setDb(PDO $db)
+    public function setDb(PDO $db)
     {
         $this->db = $db;
     }
@@ -80,7 +81,7 @@ class ConnectionSQLite
     /**
      * @return string
      */
-    protected function getTable(): string
+    public function getTable(): string
     {
         return $this->table;
     }
@@ -88,12 +89,12 @@ class ConnectionSQLite
     /**
      * @param string $table
      */
-    protected function setTable(string $table): void
+    public function setTable(string $table): void
     {
         $this->table = $table;
     }
 
-    protected function __construct($table)
+    public function __construct($table)
     {
         $this->setTable($table);
     }
@@ -101,7 +102,7 @@ class ConnectionSQLite
     /**
      * @return PDO|void
      */
-    protected function connection()
+    public function connection()
     {
         $this->setDatabaseName('database.sqlite');
         $this->setPath(BASE_ROOT . '\\database\\');
@@ -120,7 +121,7 @@ class ConnectionSQLite
      * @param $values
      * @return bool
      */
-    protected function insert($fields, $values): bool
+    public function insert($fields, $values): bool
     {
         $db = $this->connection();
 
@@ -145,7 +146,7 @@ class ConnectionSQLite
      * @param bool $fetchAll
      * @return mixed
      */
-    protected function select(string $fields = '*', $where = null, $join = null, $order = null, $limit = null, bool $fetchAll = true): mixed
+    public function select(string $fields = '*', $where = null, $join = null, $order = null, $limit = null, bool $fetchAll = true): mixed
     {
         $data = [];
         $db = $this->connection();
@@ -179,7 +180,7 @@ class ConnectionSQLite
      * @param array $values
      * @return bool
      */
-    protected function update($where = null, array $fields = [], array $values = []): bool
+    public function update($where = null, array $fields = [], array $values = []): bool
     {
         $db = $this->connection();
         $query = [];
@@ -209,7 +210,7 @@ class ConnectionSQLite
      * @param null $where
      * @return bool
      */
-    protected function delete($where = null): bool
+    public function delete($where = null): bool
     {
         $db = $this->connection();
         $statement = $db->query('DELETE FROM ' . $this->getTable() . $this->where($where));
@@ -226,7 +227,7 @@ class ConnectionSQLite
      * @param $where
      * @return string
      */
-    protected function where($where): string
+    public function where($where): string
     {
         $sql = '';
         $countParams = count($where);
@@ -253,7 +254,7 @@ class ConnectionSQLite
      * @param $join
      * @return string
      */
-    protected function join($join): string
+    public function join($join): string
     {
         $sql = '';
         $countJoin = count($join);
@@ -273,7 +274,7 @@ class ConnectionSQLite
      * @param $order
      * @return string
      */
-    protected function order($order): string
+    public function order($order): string
     {
         return ' ORDER BY ' . $order;
     }
@@ -282,7 +283,7 @@ class ConnectionSQLite
      * @param $limit
      * @return string
      */
-    protected function limit($limit): string
+    public function limit($limit): string
     {
         return ' LIMIT ' . $limit;
     }

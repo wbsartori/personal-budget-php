@@ -1,14 +1,11 @@
 <?php
 
-namespace Source\Modules\Income\Models;
+namespace Source\Modules\Example\Models;
 
-class IncomeModel
+class ExampleModel
 {
     protected int $id;
-    protected int $idPerson;
     protected string $description;
-    protected string $incomeDate;
-    protected string $value;
     protected string $createdAt;
     protected string $updatedAt;
 
@@ -31,22 +28,6 @@ class IncomeModel
     /**
      * @return string
      */
-    public function getIdPerson(): string
-    {
-        return $this->idPerson;
-    }
-
-    /**
-     * @param string $idPerson
-     */
-    public function setIdPerson(string $idPerson): void
-    {
-        $this->idPerson = $idPerson;
-    }
-
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
@@ -58,38 +39,6 @@ class IncomeModel
     public function setDescription(string $description): void
     {
         $this->description = $description;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIncomeDate(): string
-    {
-        return $this->incomeDate;
-    }
-
-    /**
-     * @param string $incomeDate
-     */
-    public function setIncomeDate(string $incomeDate): void
-    {
-        $this->incomeDate = $incomeDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setValue(string $value): void
-    {
-        $this->value = $value;
     }
 
     /**
