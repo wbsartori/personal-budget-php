@@ -10,7 +10,7 @@ $id = addslashes($_POST['id']);
 
 $persons = $Person->delete($id);
 
-if ($persons) {
+if ($persons > 0) {
     $_SESSION['message'] = 'Pessoa removida com sucesso!';
     $_SESSION['success'] = true;
     header('Location: ../index.php');
