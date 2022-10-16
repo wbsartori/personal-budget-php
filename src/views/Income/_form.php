@@ -44,10 +44,11 @@
 </div>
 <div class="row">
     <div class="col-md-3">
-        <div class="form-group">
-            <label for="value">Valor:</label>
+        <label for="value">Valor:</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">R$</span>
             <input type="text" class="form-control" maxlength="100" id="value" name="value"
-                   value="R$ <?=  $incomes['value'] ?? '' ?>" required>
+                   value="<?=  isset($incomes['value']) ? number_format($incomes['value'],2,',','.') : '' ?>" required>
         </div>
     </div>
 </div>

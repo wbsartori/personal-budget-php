@@ -45,7 +45,7 @@ $_SESSION['message'] = '';
                         <td><?php echo $item['id']?></td>
                         <td><?php echo $item['description']?></td>
                         <td><?php echo date_format((new DateTime($item['incomeDate'])), 'd/m/Y'); ?></td>
-                        <td><?php echo 'R$ '.number_format($item['value'], 2,',','.'); ?></td>
+                        <td><?php echo $item['value']; ?></td>
                         <td>
                             <div class="btn-group float-end" role="group" aria-label="Basic example">
                                 <a href="_edit.php?id=<?= $item['id'];?>&incomeDate=<?= $item['incomeDate']; ?>" class="btn btn-warning" ><i class="bi bi-pencil-square"></i></a>

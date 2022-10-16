@@ -67,7 +67,6 @@ class IncomeService
     public function update($data)
     {
         $where[] = ['P' => 'id', 'OP' => '=', 'V' => $data['id']];
-        $data['value'] = str_replace('R$ ', '', $data['value']);
 
         $person = $this->IncomeRepository->update($where, ['id','idPerson','description', 'incomeDate', 'value'], $data);
 
