@@ -2,7 +2,8 @@
   "name": "server/personal-budget",
   "autoload": {
     "psr-4": {
-      "Source\\": "src/"
+      "Source\\": "src/",
+      "Pecee\\SimpleRouter\\Event\\": "vendor/pecee"
     },
     "files": [
       "src/core/config.php",
@@ -19,6 +20,7 @@
     }
   ],
   "require": {
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "pecee/simple-router": "4.3.7.2"
   }
 }
