@@ -24,7 +24,7 @@ $_SESSION['message'] = '';
     <h4 class="mt-5">Rendas</h4>
     <hr class="bg-dark">
 
-    <a href="_new.php" class="btn btn-primary">Novo</a>
+    <a href="<?php echo ROUTER ?>Income/_new.php" class="btn btn-primary">Novo</a>
     <hr class="bg-dark">
 
     <div class="container-fluid">
@@ -33,9 +33,9 @@ $_SESSION['message'] = '';
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Data de referência</th>
+                    <th scope="col">Valor</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -43,16 +43,12 @@ $_SESSION['message'] = '';
                 <?php foreach ($incomes as $item) { ?>
                     <tr>
                         <td><?php echo $item['id']?></td>
-                        <td><?php echo $item['name']?></td>
-                        <td><?php echo $item['email']?></td>
-                        <?php if($item['status'] === 'A') { ?>
-                            <td><span class="badge text-bg-success">Ativo</span></td>
-                        <?php } else { ?>
-                            <td><span class="badge text-bg-danger">Inativo</span></td>
-                        <?php } ?>
+                        <td><?php echo $item['description']?></td>
+                        <td><?php echo date_format((new DateTime($item['incomeDate'])), 'd/m/Y'); ?></td>
+                        <td><?php echo 'R$ '.number_format($item['value'], 2,',','.'); ?></td>
                         <td>
                             <div class="btn-group float-end" role="group" aria-label="Basic example">
-                                <a href="_edit.php?id=<?= $item['id'];?>" class="btn btn-warning" ><i class="bi bi-pencil-square"></i></a>
+                                <a href="_edit.php?id=<?= $item['id'];?>&incomeDate=<?= $item['incomeDate']; ?>" class="btn btn-warning" ><i class="bi bi-pencil-square"></i></a>
 
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confimarDelete<?= $item['id'];?>">
                                         <i class="bi bi-trash"></i>
@@ -71,14 +67,14 @@ $_SESSION['message'] = '';
                                                 <label for="id">Id:</label>
                                                 <input type="text" class="form-control" id="id" name="id" value="<?php echo $item['id'];?>" disabled>
                                                 <hr>
-                                                <label for="name">Nome:</label>
-                                                <input type="text" class="form-control" id="name" name="name" value="<?php echo $item['name'];?>" disabled>
+                                                <label for="name">Descrição:</label>
+                                                <input type="text" class="form-control" id="name" name="name" value="<?php echo $item['description'];?>" disabled>
                                                 <hr>
-                                                <label for="email">E-mail:</label>
-                                                <input type="text" class="form-control" id="email" name="email" value="<?php echo $item['email'];?>" disabled>
+                                                <label for="email">Data de referência:</label>
+                                                <input type="text" class="form-control" id="email" name="email" value="<?php echo date_format((new DateTime($item['incomeDate'])), 'd/m/Y');?>" disabled>
                                                 <hr>
-                                                <label for="status">Status:</label>
-                                                <input type="text" class="form-control" id="status" name="status" value="<?php echo $item['status'];?>" disabled>
+                                                <label for="status">Valor:</label>
+                                                <input type="text" class="form-control" id="status" name="status" value="<?php echo 'R$ '.number_format($item['value'], 2,',','.');?>" disabled>
                                             </div>
                                             <div class="modal-footer">
                                                 <form action="action/delete.php" method="post">

@@ -21,15 +21,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Movimentações</a>
+                    <a class="nav-link active" aria-current="page" href="<?php echo ROUTER ?>Movement">Movimentações</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Cadastros
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/personal-budget-php/src/views/Person/index.php">Pessoa</a></li>
-                        <li><a class="dropdown-item" href="personal-budget-php/src/views/Income/index.php">Renda</a></li>
+                        <li><a class="dropdown-item" href="<?php echo ROUTER ?>Person">Pessoa</a></li>
+                        <li><a class="dropdown-item" href="<?php echo ROUTER ?>Income">Renda</a></li>
                     </ul>
                 </li>
             </ul>

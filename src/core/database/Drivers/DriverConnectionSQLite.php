@@ -151,8 +151,12 @@ class DriverConnectionSQLite
         $data = [];
         $db = $this->connection();
 
-        if(!is_null($where)){
+        if(!empty($where)){
             $where = $this->where($where);
+        }
+
+        if(!empty($join)){
+            $join = $this->join($join);
         }
 
         if($fields < 0)
@@ -160,7 +164,8 @@ class DriverConnectionSQLite
             $fields = '*';
         }
 
-        $statement = $db->query('SELECT ' . $fields . ' FROM ' . $this->getTable() . $where . $join . $order . $limit);
+        $statement = $db->query('SELECT ' . $fields . ' FROM ' . $this->getTable() . $join . $where . $order . $limit);
+        
         $list = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($list as $item) {
@@ -270,7 +275,7 @@ class DriverConnectionSQLite
             if ($countJoin > 1) {
                 $sql .= ' LEFT JOIN ' . $item['TBR'] . ' on ' . $item['TBR'] . '.' . $item['CR'] . ' = ' . $item['TBD'] . '.' . $item['CD'];
             } else {
-                $sql = ' LEFT JOIN ' . $item['TBR'] . '.' . $item['CR'] . ' = ' . $item['TBD'] . '.' . $item['CD'];
+                $sql = ' LEFT JOIN '  . $item['TBR'] . ' on ' . $item['TBR'] . '.' . $item['CR'] . ' = ' . $item['TBD'] . '.' . $item['CD'];
             }
         }
 

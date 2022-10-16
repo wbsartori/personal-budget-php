@@ -24,7 +24,7 @@ $_SESSION['message'] = '';
     <h4 class="mt-5">Pessoa</h4>
     <hr class="bg-dark">
 
-    <a href="_new.php" class="btn btn-primary">Novo</a>
+    <a href="<?php echo ROUTER ?>Person/_new.php" class="btn btn-primary">Novo</a>
     <hr class="bg-dark">
 
     <div class="container-fluid">

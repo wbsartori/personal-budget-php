@@ -10,17 +10,16 @@ $Income = new IncomeService();
 $data = [];
 
 $data = [
-    'name' => addslashes($_POST['name']),
-    'birthDate' => addslashes($_POST['birthDate']),
-    'gender' => addslashes($_POST['gender']),
-    'email' => addslashes($_POST['email']),
-    'status' => addslashes($_POST['status'] === 'on' ? 'A' : 'I'),
+    'idPerson' => addslashes($_POST['idPerson']),
+    'description' => addslashes($_POST['description']),
+    'incomeDate' => addslashes($_POST['incomeDate']),
+    'value' => addslashes($_POST['value']),
 ];
 
 
 $incomes = $Income->create($data);
 
-if (incomes['message'] === 'success') {
+if ($incomes['message'] === 'success') {
     $_SESSION['message'] = 'Pessoa inserida com sucesso!';
     header('Location: ../index.php');
 } else {

@@ -18,29 +18,11 @@ class PersonService
     private PersonRepository $PersonRepository;
 
     /**
-     * @return PersonRepository
-     * @author Wesley Bonfim Sartóri wbsartori@gmail.com
-     */
-    public function getPersonRepository(): PersonRepository
-    {
-        return $this->PersonRepository;
-    }
-
-    /**
-     * @param PersonRepository $PersonRepository
-     * @author Wesley Bonfim Sartóri wbsartori@gmail.com
-     */
-    public function setPersonRepository(PersonRepository $PersonRepository): void
-    {
-        $this->PersonRepository = $PersonRepository;
-    }
-
-    /**
      * @author Wesley Bonfim Sartóri wbsartori@gmail.com
      */
     public function __construct()
     {
-        $this->setPersonRepository((new PersonRepository()));
+        $this->PersonRepository = new PersonRepository();
     }
 
     /**
@@ -51,7 +33,7 @@ class PersonService
      */
     public function create($data)
     {
-        $person = $this->getPersonRepository()->insert(['name', 'birthDate', 'gender', 'email', 'status'], $data);
+        $person = $this->PersonRepository->insert(['name', 'birthDate', 'gender', 'email', 'status'], $data);
 
         if ($person) {
             return [
@@ -71,10 +53,10 @@ class PersonService
     {
         if ($id > 0) {
             $where[] = ['P' => 'id', 'OP' => '=', 'V' => $id];
-            return $this->getPersonRepository()->select('*', $where)[0];
+            return $this->PersonRepository->select('*', $where)[0];
         }
 
-        return $this->getPersonRepository()->select();
+        return $this->PersonRepository->select();
     }
 
     /**
@@ -86,7 +68,7 @@ class PersonService
     public function update($data)
     {
         $where[] = ['P' => 'id', 'OP' => '=', 'V' => $data['id']];
-        $person = $this->getPersonRepository()->update($where, ['id', 'name', 'birthDate', 'gender', 'email', 'status'], $data);
+        $person = $this->PersonRepository->update($where, ['id', 'name', 'birthDate', 'gender', 'email', 'status'], $data);
 
         if ($person > 0) {
             return [
@@ -105,6 +87,6 @@ class PersonService
     public function delete($id): bool
     {
         $where[] = ['P' => 'id', 'OP' => '=', 'V' => $id];
-        return $this->getPersonRepository()->delete($where);
+        return $this->PersonRepository->delete($where);
     }
 }

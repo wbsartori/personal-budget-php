@@ -7,36 +7,17 @@ use Source\Modules\Income\Repositories\IncomeRepository;
 
 class IncomeService
 {
-
     /**
-     * @var $IncomeRepository
+     * @var IncomeRepository
      */
-    private mixed $IncomeRepository;
-
-    /**
-     * @return mixed
-     */
-    public function getIncomeRepository(): mixed
-    {
-        return $this->IncomeRepository;
-    }
-
-    /**
-     * @param IncomeRepository $IncomeRepository
-     * @return IncomeService
-     */
-    public function setIncomeRepository(IncomeRepository $IncomeRepository): IncomeService
-    {
-        $this->IncomeRepository = $IncomeRepository;
-        return $this;
-    }
+    private IncomeRepository $IncomeRepository;
 
     /**
      * @author Wesley Bonfim Sartóri wbsartori@gmail.com
      */
     public function __construct()
     {
-        $this->setIncomeRepository((new IncomeRepository()));
+        $this->IncomeRepository = new IncomeRepository();
     }
 
     /**
@@ -47,7 +28,7 @@ class IncomeService
      */
     public function create($data)
     {
-        $person = $this->getIncomeRepository()->insert(['name', 'birthDate', 'gender', 'email', 'status'], $data);
+        $person = $this->IncomeRepository->insert(['idPerson','description', 'incomeDate', 'value'], $data);
 
         if ($person) {
             return [
@@ -63,14 +44,18 @@ class IncomeService
      * @return mixed
      * @author Wesley Bonfim Sartóri wbsartori@gmail.com
      */
-    public function read($id = null)
+    public function read($id = null, $incomeDate = null)
     {
+        $columns = 'person.id as personId, person.name as personName, income.*';
+        $join[] = ['TBR' => 'person' , 'CR' => 'id', 'TBD' => 'income', 'CD' => 'idPerson'];
+
         if ($id > 0) {
-            $where[] = ['P' => 'id', 'OP' => '=', 'V' => $id];
-            return $this->getIncomeRepository()->select('*', $where)[0];
+            $where[] = ['P' => 'income.id', 'OP' => '=', 'V' => $id];
+            $where[] = ['P' => 'incomeDate', 'OP' => '=', 'V' => "'".$incomeDate."'"];
+            return $this->IncomeRepository->select($columns, $where, $join)[0];
         }
 
-        return $this->getIncomeRepository()->select();
+        return $this->IncomeRepository->select($columns, '', $join);
     }
 
     /**
@@ -82,7 +67,9 @@ class IncomeService
     public function update($data)
     {
         $where[] = ['P' => 'id', 'OP' => '=', 'V' => $data['id']];
-        $person = $this->getIncomeRepository()->update($where, ['id', 'name', 'birthDate', 'gender', 'email', 'status'], $data);
+        $data['value'] = str_replace('R$ ', '', $data['value']);
+
+        $person = $this->IncomeRepository->update($where, ['id','idPerson','description', 'incomeDate', 'value'], $data);
 
         if ($person > 0) {
             return [
@@ -101,6 +88,6 @@ class IncomeService
     public function delete($id): bool
     {
         $where[] = ['P' => 'id', 'OP' => '=', 'V' => $id];
-        return $this->getIncomeRepository()->delete($where);
+        return $this->IncomeRepository->delete($where);
     }
 }

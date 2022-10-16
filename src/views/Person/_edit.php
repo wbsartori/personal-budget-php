@@ -30,7 +30,7 @@ $_SESSION['message'] = '';
                 <form method="post" action="action/update.php">
                     <?php include('_form.php'); ?>
                     <button class="btn btn-success" type="submit">Salvar</button>
-                    <a href="index.php" class="btn btn-danger">Cancelar</a>
+                    <a href="<?php echo ROUTER ?>Person" class="btn btn-danger">Cancelar</a>
                 </form>
             </div>
         </div>
