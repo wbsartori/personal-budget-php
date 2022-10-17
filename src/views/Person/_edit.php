@@ -1,10 +1,5 @@
-<?php
-require_once ('../../../vendor/autoload.php');
+<?php $this->layout('includes/layout'); ?>
 
-include_once('../includes/_header.php');
-include_once ('action/edit.php');
-
-?>
 
 <?php
 
@@ -23,7 +18,7 @@ $_SESSION['message'] = '';
 
 ?>
     <div class="container">
-        <h4 class="mt-5">Editar/Pessoas</h4>
+        <h4 class="mt-5"><?php echo $title ?></h4>
         <hr class="bg-dark">
         <div class="row mt-5">
             <div class="col-md-12">

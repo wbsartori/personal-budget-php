@@ -1,7 +1,4 @@
-<?php
-require_once('../../../vendor/autoload.php');
-include_once('../includes/_header.php');
-?>
+<?php $this->layout('includes/layout'); ?>
 
 <?php
 
@@ -19,14 +16,14 @@ if (!empty($_SESSION['message']) && $_SESSION['success'] === true) {
 $_SESSION['message'] = '';
 ?>
     <div class="container">
-        <h4 class="mt-5">Cadastro/Pessoas</h4>
+        <h4 class="mt-5"><?php echo $title ?></h4>
         <hr class="bg-dark">
         <div class="row mt-5">
             <div class="col-md-12">
                 <form method="post" action="action/save.php">
                     <?php include('_form.php'); ?>
                     <button class="btn btn-success" type="submit">Salvar</button>
-                    <a href="<?php echo ROUTER ?>Person" class="btn btn-danger">Cancelar</a>
+                    <a href="<?php echo ROUTER ?>person" class="btn btn-danger">Cancelar</a>
                 </form>
             </div>
         </div>
