@@ -1,32 +1,13 @@
 <?php
 
-namespace Server\PersonalBudget\Controllers;
-
-use CoffeeCode\Router\Router;
+namespace Source\Controllers;
 
 
 class ErrorController
 {
-    /**
-     * @var Router
-     */
-    private Router $router;
-
-    public function __construct($router)
+    public function error($data)
     {
-        $this->router = $router;
-    }
-
-    public function index(): void
-    {
-        echo "<h1>Home</h1>";
-        echo "<p>", $this->router->route("name.home"), "</p>";
-        echo "<p>", $this->router->route("name.hello"), "</p>";
-        echo "<p>", $this->router->route("name.redirect"), "</p>";
-    }
-
-    public function redirect(): void
-    {
-        $this->router->redirect("name.hello");
+        echo "<h1><p>Error: ", $data['errcode'], "</h1></p>";
+        var_dump($data);
     }
 }
