@@ -11,11 +11,11 @@ class Movement extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'id','description','classification','incomeDate','value','createdAt','updatedAt'
+        'id', 'description', 'classification', 'typeOfCost', 'typeOfPayment', 'movementDate', 'value', 'status '
     ];
 
     public function person(): HasOne
     {
-        return $this->hasOne(Person::class,'id');
+        return $this->hasOne(Person::class, 'id');
     }
 }

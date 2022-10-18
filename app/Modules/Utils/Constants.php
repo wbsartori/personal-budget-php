@@ -27,6 +27,14 @@ class Constants
         'deleteRecords' => 'Erro ao tentar remover o registro!',
     ];
 
+    const TITLES = [
+        'person' => [
+            'index' => 'Cadastros\Rendas',
+            'new' => 'Cadastros\Rendas\Novo',
+            'edit' => '',
+        ]
+    ];
+
     const BASE_ROOT = '/var/www';
     const BASE_URL = 'http://localhost:8000';
 }

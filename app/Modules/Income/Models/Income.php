@@ -11,11 +11,11 @@ class Income extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'id','description','classification','incomeDate','value','createdAt','updatedAt'
+        'idPerson', 'description', 'incomeDate', 'value'
     ];
 
     public function person(): HasOne
     {
-        return $this->hasOne(Person::class,'id');
+        return $this->hasOne(Person::class, 'id');
     }
 }
