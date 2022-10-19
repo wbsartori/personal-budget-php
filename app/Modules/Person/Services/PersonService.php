@@ -59,7 +59,7 @@ class PersonService
      */
     public function edit($id): Collection
     {
-        return $this->personRepository->getPersonById($id);
+        return $this->personRepository->getById($id);
     }
 
     /**

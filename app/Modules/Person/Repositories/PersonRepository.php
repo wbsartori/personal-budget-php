@@ -57,7 +57,7 @@ class PersonRepository extends DB
      * @param $id
      * @return Collection
      */
-    public function getPersonById($id): Collection
+    public function getById($id): Collection
     {
         return DB::table(self::TABLE)
             ->where('id', '=', $id)
