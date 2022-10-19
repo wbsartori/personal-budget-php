@@ -4,22 +4,35 @@ namespace App\Modules\Person;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Person\Models\Person;
+use App\Modules\Person\Services\PersonService;
 use App\Modules\Utils\Constants;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 
 class PersonController extends Controller
 {
     /**
+     * @var PersonService $personService
+     */
+    protected PersonService $personService;
+
+
+    public function __construct()
+    {
+        $this->personService = new PersonService();
+    }
+
+    /**
      * @return Factory|View|Application
      */
     public function read(): Factory|View|Application
     {
-        $persons = [];
-        return view('person.index', compact("persons"));
+        $records = $this->personService->read();
+        return view('person.index', compact("records"));
     }
 
     /**
@@ -27,36 +40,17 @@ class PersonController extends Controller
      */
     public function new(): Factory|View|Application
     {
-        $persons = [];
-        return view('person._new', compact("persons"));
+        $records = [];
+        return view('person._new', compact("records"));
     }
 
     /**
-     * @param $request
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function save($request): RedirectResponse
+    public function save(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'birthDate' => 'required',
-            'gender' => 'required',
-            'email' => 'required'
-        ],
-            [
-                'name.required' => Constants::VALIDATE_MSG['person']['name'],
-                'birthDate.required' => Constants::VALIDATE_MSG['person']['birthDate'],
-                'gender.required' => Constants::VALIDATE_MSG['person']['gender'],
-                'email.required' => Constants::VALIDATE_MSG['person']['email'],
-            ]);
-
-        $data = $request->all();
-
-        if (empty(count($data))) {
-            return redirect()->back()->with('errors', '');
-        }
-
-        Person::create($data);
+        $this->personService->create($request);
         return redirect()->route('person')->with('success', Constants::SUCCESS_MSG['person']['saveRecords']);
     }
 
@@ -66,20 +60,24 @@ class PersonController extends Controller
      */
     public function edit($id): View|Factory|Application
     {
-        $persons = Person::find($id);
-        return view('person.edit', compact('persons'));
+        $records = $this->personService->edit($id)[0];
+        return view('person._edit', compact('records'));
     }
 
     /**
-     * @param $request
+     * @param Request $request
      * @param $id
      * @return RedirectResponse
      */
-    public function update($request, $id): RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
-        $data = $request->all();
-        Person::find($id)->update($data);
-        return redirect()->route('person')->with('success', Constants::SUCCESS_MSG['person']['updateRecords']);
+        $response = $this->personService->update($request->all(), $id);
+
+        if($response > 0){
+            return redirect()->route('person')->with('success', Constants::SUCCESS_MSG['person']['updateRecords']);
+        }
+
+        return redirect()->route('person')->with('errors', Constants::ERROR_MSG['person']['updateRecords']);
     }
 
     /**
@@ -88,7 +86,11 @@ class PersonController extends Controller
      */
     public function delete($id): RedirectResponse
     {
-        Person::find($id)->delete();
-        return redirect()->route('person')->with('success', Constants::SUCCESS_MSG['person']['deleteRecords']);
+        $response = $this->personService->delete($id);
+
+        if($response > 0){
+            return redirect()->route('person')->with('success', Constants::SUCCESS_MSG['person']['deleteRecords']);
+        }
+        return redirect()->route('person')->with('errors', Constants::ERROR_MSG['person']['deleteRecords']);
     }
 }

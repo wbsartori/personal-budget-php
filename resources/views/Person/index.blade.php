@@ -18,25 +18,29 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($persons as $item)
+                @foreach($records as $item)
                     <tr>
-                        <td><?php echo $item['id'] ?></td>
-                        <td><?php echo $item['name'] ?></td>
-                        <td><?php echo $item['email'] ?></td>
-                        <td><span class="badge text-bg-success">Ativo</span></td>
-                        <td><span class="badge text-bg-danger">Inativo</span></td>
+                        <td>{{$item->id}}</td>
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>
+                            @if($item->status === "A")
+                                <span class="badge text-bg-success">Ativo</span></td>
+                            @else
+                                <span class="badge text-bg-danger">Inativo</span>
+                            @endif
                         <td>
                             <div class="btn-group float-end" role="group" aria-label="Basic example">
-                                <a href="person/edit/<?= $item['id']; ?>" class="btn btn-warning"><i
+                                <a href="person/edit/{{$item->id}}" class="btn btn-warning"><i
                                         class="bi bi-pencil-square"></i></a>
 
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#confimarDelete<?= $item['id']; ?>">
+                                        data-bs-target="#confimarDelete{{$item->id}}">
                                     <i class="bi bi-trash"></i>
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="confimarDelete<?= $item['id']; ?>" data-bs-backdrop="static"
+                                <div class="modal fade" id="confimarDelete{{$item->id}}" data-bs-backdrop="static"
                                      data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                      aria-hidden="true">
                                     <div class="modal-dialog">
@@ -50,24 +54,24 @@
                                                 <p>Tem certeza que desja remover este registro ?</p>
                                                 <label for="id">Id:</label>
                                                 <input type="text" class="form-control" id="id" name="id"
-                                                       value="<?php echo $item['id']; ?>" disabled>
+                                                       value="{{$item->id}}" disabled>
                                                 <hr>
                                                 <label for="name">Nome:</label>
                                                 <input type="text" class="form-control" id="name" name="name"
-                                                       value="<?php echo $item['name']; ?>" disabled>
+                                                       value="{{$item->name}}" disabled>
                                                 <hr>
                                                 <label for="email">E-mail:</label>
                                                 <input type="text" class="form-control" id="email" name="email"
-                                                       value="<?php echo $item['email']; ?>" disabled>
+                                                       value="{{$item->email}}" disabled>
                                                 <hr>
                                                 <label for="status">Status:</label>
                                                 <input type="text" class="form-control" id="status" name="status"
-                                                       value="<?php echo $item['status']; ?>" disabled>
+                                                       value="{{$item->status}}" disabled>
                                             </div>
                                             <div class="modal-footer">
-                                                <form action="person/delete/<?php echo $item['id']?>">
+                                                <form action="person/delete/{{$item->id}}">
                                                     <input type="hidden" name="id" id="id"
-                                                           value="<?php echo $item['id'] ?>">
+                                                           value="{{$item->id}}">
                                                     <button type="submit" class="btn btn-warning">Confirmar<i
                                                             class="bi bi-trash"></i></button>
                                                     <button type="button" class="btn btn-secondary"
