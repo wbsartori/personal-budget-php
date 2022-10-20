@@ -13,7 +13,8 @@ class HomeController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function home(){
-        return view('home.home');
+    public function index(): View|Factory|Application
+    {
+        return view('Home.index');
     }
 }

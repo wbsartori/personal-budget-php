@@ -3,7 +3,6 @@
 namespace App\Modules\Person;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Person\Models\Person;
 use App\Modules\Person\Services\PersonService;
 use App\Modules\Utils\Constants;
 use Illuminate\Contracts\Foundation\Application;
@@ -32,7 +31,7 @@ class PersonController extends Controller
     public function read(): Factory|View|Application
     {
         $records = $this->personService->read();
-        return view('person.index', compact("records"));
+        return view('Person.index', compact("records"));
     }
 
     /**
@@ -41,7 +40,7 @@ class PersonController extends Controller
     public function new(): Factory|View|Application
     {
         $records = [];
-        return view('person._new', compact("records"));
+        return view('Person._new', compact("records"));
     }
 
     /**
@@ -61,7 +60,7 @@ class PersonController extends Controller
     public function edit($id): View|Factory|Application
     {
         $records = $this->personService->edit($id)[0];
-        return view('person._edit', compact('records'));
+        return view('Person._edit', compact('records'));
     }
 
     /**
