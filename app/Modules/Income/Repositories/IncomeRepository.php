@@ -40,10 +40,10 @@ class IncomeRepository extends DB
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return int
      */
-    public function delete($id): int
+    public function delete(int $id): int
     {
         return DB::table(self::TABLE)
             ->where('id', '=', $id)
